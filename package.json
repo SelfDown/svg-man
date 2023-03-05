@@ -21,7 +21,9 @@
     "through2": "^3.0.0",
     "word-pinyin": "^0.1.8"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "svg-man": "^0.1.2"
+  },
   "description": "将svg图标转化成iconfont",
   "main": "gulpfile.js",
   "scripts": {

@@ -11,23 +11,28 @@ const htmlmin = require('gulp-htmlmin')
 const path = require('path')
 
 const outputPath = './iconfont' // 输出路径
+const symbol_outputPath = './symbol' // 输出路径
+const sourcePath="./source"
 const iconfontConf = {
-    svgPath: '.', // svg 文件夹路径（当前文件夹）
-    fontName: 'fe-font', // font-family
-    prefix: 'fe', // class 前缀 和 symbol id 前缀
+    svgPath: sourcePath, // svg 文件夹路径（当前文件夹）
+    // fontName: 'fe-font', // font-family
+    // prefix: 'fe', // class 前缀 和 symbol id 前缀
     templateCSSPath: path.resolve(__dirname, './templates/iconfont.css'), // css 模板的路径
     templateHTMLPath: path.resolve(__dirname, './templates/iconfont-example.html'), // iconfont example html path
-    outputCSSPath: outputPath, // css 输出路径,这个路径是相对 outputPath的路径（我也不知道为什么）
     fontsPathInCSS: './fonts/', // iconfont.css 中引入font文件时用到的相对路径
     outputFontsPath: `${outputPath}/fonts`, // 字体文件输出路径
     outputHTML: `${outputPath}`, // 输出html demo的路径
+    outputCSSPath: outputPath, // css 输出路径,这个路径是相对 outputPath的路径（我也不知道为什么）
     startUnicode: 0xEA01, // 编码开始点
 }
 
 const symbolConf = Object.assign({}, iconfontConf, {
     templateJSPath: path.resolve(__dirname, './templates/iconfont.js'), // js 模板的路径
-    outputJS: outputPath, // 输出js文件的路径
     templateHTMLPath: path.resolve(__dirname, './templates/symbol-example.html'), // symbol example html path
+    outputJS: symbol_outputPath, // 输出js文件的路径
+    outputFontsPath: `${symbol_outputPath}/fonts`, // 字体文件输出路径
+    outputHTML: `${symbol_outputPath}`, // 输出html demo的路径
+    outputCSSPath: symbol_outputPath, // css
 })
 
 // 转化中文到拼音
@@ -43,7 +48,7 @@ function fixIconName(oriName) {
 
 // 返回所有svg文件的文件名
 function getIcons() {
-    let icons = fs.readdirSync('./')
+    let icons = fs.readdirSync(sourcePath)
     icons = icons.filter(name => name.endsWith('.svg'))
         .map(fixIconName)
     return icons
